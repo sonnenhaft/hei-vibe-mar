@@ -1,4 +1,4 @@
-# HEI Neon Map
+# SALES 40000
 
 Leaflet + TypeScript prototype for an offline neon signal map of Poland.
 
@@ -10,6 +10,12 @@ npm run dev
 ```
 
 The dev server is configured for `http://127.0.0.1:8123`.
+
+Production builds are configured for GitHub Pages at:
+
+```text
+https://sonnenhaft.github.io/hei-vibe-mar/
+```
 
 ## Codex Log
 

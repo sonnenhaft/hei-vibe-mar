@@ -1,7 +1,8 @@
 {
-  "name": "hei-map",
+  "name": "sales-40000",
   "version": "1.0.0",
-  "description": "Offline neon Leaflet heatmap prototype for Poland signal layers.",
+  "description": "SALES 40000 neon Leaflet heatmap prototype for Poland signal layers.",
+  "homepage": "https://sonnenhaft.github.io/hei-vibe-mar/",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 8123",

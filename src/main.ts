@@ -236,7 +236,7 @@ function renderShell(): void {
 
     <aside class="hud">
       <div class="hud-head">
-        <h1>Imperial<br>Sales Command</h1>
+        <h1>SALES<br>40000</h1>
         <span class="status">M40.000</span>
       </div>
 

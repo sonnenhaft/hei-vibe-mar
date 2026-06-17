@@ -33,7 +33,7 @@ export const fallbackData: DemoData = {
 
 export async function loadDemoData(): Promise<DemoData> {
   try {
-    const response = await fetch("/data/demo.json", { cache: "no-store" });
+    const response = await fetch(`${import.meta.env.BASE_URL}data/demo.json`, { cache: "no-store" });
     if (!response.ok) throw new Error("Demo data request failed");
     return await response.json() as DemoData;
   } catch {
