@@ -100,16 +100,25 @@ export function createZabkaLayer(_map: LeafletMap, count = 2400, mode: ZabkaMode
           className: "zabka-coverage-hub",
           html: `
             <span class="zabka-logo-mark">Ż</span>
-            <span class="zabka-brand-star"></span>
             <b>${hub.coverage}%</b>
           `,
-          iconSize: [82, 34],
+          iconSize: [58, 34],
           iconAnchor: [12, 17]
         })
       }).bindTooltip(`${hub.label}: ${hub.coverage}% Zabka coverage`, {
         direction: "top",
         opacity: 0.95,
         className: "coverage-tooltip"
+      }));
+      layers.push(L.marker([hub.lat + 0.0024, hub.lng + 0.0046], {
+        interactive: false,
+        pane: "markerPane",
+        icon: L.divIcon({
+          className: "zabka-brand-star-icon",
+          html: `<span class="zabka-brand-star"></span>`,
+          iconSize: [22, 22],
+          iconAnchor: [11, 11]
+        })
       }));
     });
   }

@@ -11,6 +11,10 @@ npm run dev
 
 The dev server is configured for `http://127.0.0.1:8123`.
 
+## Codex Log
+
+- [Codex chat log](codex.log.md)
+
 ## Structure
 
 - `src/main.ts` - Leaflet app, level switching, layer toggles, AI priority scanner.

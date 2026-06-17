@@ -6,6 +6,7 @@ import { loadDemoData } from "./data";
 import {
   cityEventPointFeatures,
   eventPointFeatures,
+  majorCities,
   regionEventPointFeatures,
   type EventProperties
 } from "./geoData";
@@ -171,19 +172,16 @@ function renderShell(): void {
       </div>
       <div class="general-roster" role="group" aria-label="General map mode">
         <button class="general-pick active" type="button" data-general="silver" aria-label="Select General Silver map mode">
-          <span class="general-silver-logo hud-general general-silver" aria-hidden="true">
-            <i></i><span></span><b></b><em data-label="GEN SILVER"></em>
-          </span>
+          <b>Silver</b>
+          <span>balanced</span>
         </button>
         <button class="general-pick" type="button" data-general="desperados" aria-label="Select General Desperados map mode">
-          <span class="general-silver-logo hud-general general-desperados" aria-hidden="true">
-            <i></i><span></span><b></b><em data-label="GEN DESPERADOS"></em>
-          </span>
+          <b>Desperados</b>
+          <span>debt raid</span>
         </button>
         <button class="general-pick" type="button" data-general="zywiec" aria-label="Select General Zywiec map mode">
-          <span class="general-silver-logo hud-general general-zywiec" aria-hidden="true">
-            <i></i><span></span><b></b><em data-label="GEN ZYWIEC"></em>
-          </span>
+          <b>Zywiec</b>
+          <span>freshness</span>
         </button>
       </div>
       <div class="mandate-strip">
@@ -429,9 +427,14 @@ function bootInteractions(map: L.Map, layers: BusinessMapLayers, data: DemoData)
   const acidThemeInput = document.querySelector<HTMLInputElement>("#acidTheme")!;
   const zabkaLayer = createZabkaLayer(map, 5200, "warsaw");
   const chatContourLayer = L.layerGroup().addTo(map);
-  const cityOptions = [...layers.cityById.values()]
-    .filter((city, index, allCities) => allCities.findIndex((candidate) => candidate.id === city.id) === index)
-    .sort((left, right) => left.name.localeCompare(right.name)) as CityMapOption[];
+  const cityOptions: CityMapOption[] = majorCities
+    .map((city) => ({
+      id: city.id,
+      name: city.name,
+      latLng: city.latLng,
+      populationK: city.populationK
+    }))
+    .sort((left, right) => left.name.localeCompare(right.name));
   const cityAliases = new Map<string, string>([
     ["warszawa", "warsaw"],
     ["krakow", "krakow"],
@@ -597,8 +600,10 @@ function bootInteractions(map: L.Map, layers: BusinessMapLayers, data: DemoData)
   function focusChatCity(rawValue: string): void {
     const match = bestCityMatch(rawValue);
     if (!match) {
+      cityChatForm.closest(".city-chat")?.classList.remove("locked");
       cityChatLog.innerHTML = `<b>No lock:</b> ${rawValue || "empty"}`;
       hintEl.textContent = "City not found in Poland grid";
+      window.setTimeout(() => cityChatInput.focus({ preventScroll: true }), 0);
       return;
     }
 
@@ -647,10 +652,15 @@ function bootInteractions(map: L.Map, layers: BusinessMapLayers, data: DemoData)
     });
     cityChatInput.value = match.name;
     renderCitySuggestions();
+    cityChatForm.closest(".city-chat")?.classList.add("locked");
     breadcrumbEl.textContent = `City lock / ${match.name}`;
     hintEl.textContent = knownCity ? "Autocomplete corrected; contour drawn" : "Autocomplete corrected; marker contour drawn";
     cityChatLog.innerHTML = `<b>Corrected:</b> ${match.name}<br><span>${knownCity ? `Revenue ${formatMoneyPln(knownCity.revenueMlnPln)} / debt ${formatMoneyPln(knownCity.debtMlnPln)}` : "Marker lock only"}</span>`;
     readoutEl.textContent = `${match.name} is outlined on the Poland map. No city collapse: the command contour marks the field perimeter.`;
+    window.setTimeout(() => {
+      cityChatInput.focus({ preventScroll: true });
+      cityChatInput.select();
+    }, 0);
   }
 
   function renderStats(): void {
@@ -913,6 +923,10 @@ function bootInteractions(map: L.Map, layers: BusinessMapLayers, data: DemoData)
 
   navButtons.forEach((button) => button.addEventListener("click", () => setView(button.dataset.view as MapScene)));
   cityChatInput.addEventListener("input", renderCitySuggestions);
+  cityChatInput.addEventListener("change", () => {
+    const match = bestCityMatch(cityChatInput.value);
+    if (match) focusChatCity(match.name);
+  });
   cityChatSuggestions.addEventListener("click", (event) => {
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-city-id]");
     if (!button) return;

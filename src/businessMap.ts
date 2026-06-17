@@ -463,10 +463,12 @@ function addCityNodes(
   clickableIds: Set<string>
 ): void {
   L.geoJSON(source, {
-    pointToLayer: (feature, latlng) => {
+    pointToLayer: (feature) => {
+      const [lng, lat] = feature.geometry.coordinates;
+      const coordinateLatLng = L.latLng(lat, lng);
       const city = {
         ...feature.properties,
-        latLng: [latlng.lat, latlng.lng] as L.LatLngExpression
+        latLng: [coordinateLatLng.lat, coordinateLatLng.lng] as L.LatLngExpression
       };
       cityById.set(city.id, city);
       const className = [
@@ -477,7 +479,7 @@ function addCityNodes(
       ].filter(Boolean).join(" ");
       if (city.millionSignal || city.capital || city.starSignal) {
         const iconSize = populationStarSize(city);
-        const marker = L.marker(latlng, {
+        const marker = L.marker(coordinateLatLng, {
           icon: L.divIcon({
             className: `${className} brand-city-icon`,
             html: `<span class="brand-star" aria-hidden="true"></span>`,
@@ -492,7 +494,7 @@ function addCityNodes(
         }
         return marker;
       }
-      const marker = L.circleMarker(latlng, {
+      const marker = L.circleMarker(coordinateLatLng, {
         className,
         color: city.capital ? "rgba(255, 35, 77, 1)" : city.millionSignal ? "rgba(239, 255, 86, 1)" : "rgba(47, 255, 255, 0.98)",
         weight: city.millionSignal ? 3.2 : 2.1,
