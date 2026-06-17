@@ -15,6 +15,22 @@ The dev server is configured for `http://127.0.0.1:8123`.
 
 - [Codex chat log](codex.log.md)
 
+## Photos
+
+Full screenshot timeline: [photoes/README.md](photoes/README.md)
+
+| 2026-06-17 15:34:42 | 2026-06-17 15:35:00 |
+| --- | --- |
+| <img src="photoes/2026-06-17-15-34-42-initial-demo.png" width="360" alt="Initial demo screenshot"> | <img src="photoes/2026-06-17-15-35-00-demo-2.png" width="360" alt="Second demo screenshot"> |
+
+| 2026-06-17 15:51:04 | 2026-06-17 15:57:14 |
+| --- | --- |
+| <img src="photoes/2026-06-17-15-51-04-screenshot.png" width="360" alt="Screenshot 2026-06-17 15:51:04"> | <img src="photoes/2026-06-17-15-57-14-screenshot.png" width="360" alt="Screenshot 2026-06-17 15:57:14"> |
+
+| 2026-06-17 16:04:13 | 2026-06-17 16:56:50 |
+| --- | --- |
+| <img src="photoes/2026-06-17-16-04-13-screenshot.png" width="360" alt="Screenshot 2026-06-17 16:04:13"> | <img src="photoes/2026-06-17-16-56-50-screenshot.png" width="360" alt="Screenshot 2026-06-17 16:56:50"> |
+
 ## Structure
 
 - `src/main.ts` - Leaflet app, level switching, layer toggles, AI priority scanner.
