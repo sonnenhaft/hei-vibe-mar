@@ -1,0 +1,454 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "warsaw",
+        "name": "Warsaw",
+        "capital": true,
+        "millionSignal": true,
+        "populationK": 1860
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.01,
+          52.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "krakow",
+        "name": "Krakow",
+        "millionSignal": true,
+        "populationK": 803
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.94,
+          50.06
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "lodz",
+        "name": "Lodz",
+        "millionSignal": true,
+        "populationK": 655
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.46,
+          51.77
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "wroclaw",
+        "name": "Wroclaw",
+        "millionSignal": true,
+        "populationK": 674
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.03,
+          51.11
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "poznan",
+        "name": "Poznan",
+        "millionSignal": true,
+        "populationK": 540
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.93,
+          52.41
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "gdansk",
+        "name": "Gdansk",
+        "millionSignal": true,
+        "populationK": 486
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.65,
+          54.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "katowice",
+        "name": "Katowice",
+        "millionSignal": true,
+        "populationK": 279
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.02,
+          50.26
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "radom",
+        "name": "Radom",
+        "starSignal": true,
+        "populationK": 198
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.15,
+          51.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "szczecin",
+        "name": "Szczecin",
+        "starSignal": true,
+        "populationK": 390
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.55,
+          53.43
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bydgoszcz",
+        "name": "Bydgoszcz",
+        "starSignal": true,
+        "populationK": 330
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.01,
+          53.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "torun",
+        "name": "Torun",
+        "starSignal": true,
+        "populationK": 196
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.6,
+          53.01
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "lublin",
+        "name": "Lublin",
+        "starSignal": true,
+        "populationK": 332
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.57,
+          51.25
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bialystok",
+        "name": "Bialystok",
+        "starSignal": true,
+        "populationK": 293
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.17,
+          53.13
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "rzeszow",
+        "name": "Rzeszow",
+        "starSignal": true,
+        "populationK": 197
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22,
+          50.04
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kielce",
+        "name": "Kielce",
+        "starSignal": true,
+        "populationK": 188
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.63,
+          50.87
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "olsztyn",
+        "name": "Olsztyn",
+        "starSignal": true,
+        "populationK": 168
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.48,
+          53.78
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "opole",
+        "name": "Opole",
+        "starSignal": true,
+        "populationK": 126
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.92,
+          50.68
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "zielona-gora",
+        "name": "Zielona Gora",
+        "starSignal": true,
+        "populationK": 139
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.51,
+          51.94
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "gorzow",
+        "name": "Gorzow Wielkopolski",
+        "starSignal": true,
+        "populationK": 122
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.24,
+          52.74
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "gdynia",
+        "name": "Gdynia",
+        "starSignal": true,
+        "populationK": 244
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.53,
+          54.52
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "czestochowa",
+        "name": "Czestochowa",
+        "starSignal": true,
+        "populationK": 208
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.12,
+          50.81
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "bielsko-biala",
+        "name": "Bielsko-Biala",
+        "starSignal": true,
+        "populationK": 168
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.04,
+          49.82
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "gliwice",
+        "name": "Gliwice",
+        "starSignal": true,
+        "populationK": 171
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.67,
+          50.29
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "elblag",
+        "name": "Elblag",
+        "starSignal": true,
+        "populationK": 116
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.41,
+          54.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "koszalin",
+        "name": "Koszalin",
+        "starSignal": true,
+        "populationK": 105
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.17,
+          54.19
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kalisz",
+        "name": "Kalisz",
+        "starSignal": true,
+        "populationK": 97
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.09,
+          51.76
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "plock",
+        "name": "Plock",
+        "starSignal": true,
+        "populationK": 116
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.71,
+          52.55
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "tarnow",
+        "name": "Tarnow",
+        "starSignal": true,
+        "populationK": 105
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.99,
+          50.01
+        ]
+      }
+    }
+  ]
+}

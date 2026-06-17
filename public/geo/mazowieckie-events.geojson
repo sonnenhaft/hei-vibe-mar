@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "region-events-warsaw",
+        "name": "Warsaw demand wave",
+        "window": "Fri evening, 21 Jun",
+        "detail": "Sales should cover central chains before debt follow-up starts Monday.",
+        "radiusMeters": 54000,
+        "score": 91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.01,
+          52.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "region-events-radom",
+        "name": "Radom field run",
+        "window": "Sat, 22 Jun",
+        "detail": "Secondary city pull; combine merchandising visit with overdue account checks.",
+        "radiusMeters": 32000,
+        "score": 61
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.15,
+          51.4
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "region-events-plock",
+        "name": "Plock outlet pressure",
+        "window": "Sun morning, 23 Jun",
+        "detail": "Low-score but useful northern sweep while warehouse stock remains high.",
+        "radiusMeters": 28000,
+        "score": 52
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.7,
+          52.55
+        ]
+      }
+    }
+  ]
+}

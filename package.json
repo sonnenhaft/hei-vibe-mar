@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 8123",
     "build": "tsc && vite build",
+    "export:geo": "node scripts/export-geo-data.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 8123"
   },
   "dependencies": {

@@ -41,12 +41,33 @@ Full screenshot timeline: [photoes/README.md](photoes/README.md)
 
 ## Geo Data Contract
 
-The app is ready to replace the fallback SVG with real local vector data:
+Export local GeoJSON from the TypeScript demo data:
+
+```bash
+npm run export:geo
+```
+
+Generated files are written to `public/geo/` with `manifest.json`:
 
 - `public/geo/poland-country.geojson`
 - `public/geo/poland-voivodeships.geojson`
-- `public/geo/warsaw-city.geojson`
+- `public/geo/poland-admin-boundaries.geojson`
 - `public/geo/highways.geojson`
+- `public/geo/poland-transport.geojson`
+- `public/geo/poland-signals.geojson`
+- `public/geo/poland-events.geojson`
+- `public/geo/poland-cities.geojson`
+- `public/geo/mazowieckie-region.geojson`
+- `public/geo/mazowieckie-signals.geojson`
+- `public/geo/mazowieckie-transport.geojson`
+- `public/geo/mazowieckie-events.geojson`
+- `public/geo/mazowieckie-cities.geojson`
+- `public/geo/warsaw-city.geojson`
+- `public/geo/warsaw-districts.geojson`
+- `public/geo/warsaw-signals.geojson`
+- `public/geo/warsaw-transport.geojson`
+- `public/geo/warsaw-events.geojson`
 - `public/geo/zabka-points.geojson`
+- `public/geo/zabka-coverage-hubs.geojson`
 
 Runtime should stay offline: GeoJSON files live in the repo and Leaflet renders them locally.

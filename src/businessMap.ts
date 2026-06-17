@@ -23,6 +23,8 @@ import {
   warsawBoundaryFeature,
   warsawDistrictLineFeatures
 } from "./geoData";
+import { isLatLngInsideAllPolygons } from "./geoClip";
+import { isInsidePolandStarClip, polandStarClipPolygons } from "./polandStarClip";
 import type { LayerId } from "./types";
 
 export type MapScene = "poland" | "region" | "city";
@@ -44,6 +46,7 @@ export interface BusinessMapLayers {
 const countryBounds: LatLngBoundsExpression = [[48.55, 12.85], [55.45, 25.35]];
 const regionBounds: LatLngBoundsExpression = [[50.86, 19.05], [53.18, 22.7]];
 const cityBounds: LatLngBoundsExpression = [[51.94, 20.62], [52.48, 21.42]];
+const majorCityStarMinPopulationK = 500;
 
 const countryStyle: L.PathOptions = {
   color: "rgba(239, 255, 86, 0.82)",
@@ -106,37 +109,37 @@ const signalStyles: Record<SignalKind | "countryRevenue" | "priority", L.PathOpt
   countryRevenue: {
     color: "transparent",
     weight: 0,
-    fillColor: "rgba(54, 255, 60, 0.54)",
-    fillOpacity: 0.9,
+    fillColor: "rgba(54, 255, 60, 0.32)",
+    fillOpacity: 0.52,
     pane: "countryHeatPane",
     className: "country-revenue-fill"
   },
   revenue: {
     color: "transparent",
     weight: 0,
-    fillColor: "rgba(87, 255, 61, 0.48)",
-    fillOpacity: 0.94,
+    fillColor: "rgba(87, 255, 61, 0.3)",
+    fillOpacity: 0.5,
     className: "revenue-region"
   },
   expenses: {
     color: "transparent",
     weight: 0,
-    fillColor: "rgba(255, 104, 35, 0.44)",
-    fillOpacity: 0.88,
+    fillColor: "rgba(255, 104, 35, 0.28)",
+    fillOpacity: 0.46,
     className: "expenses-region"
   },
   debt: {
     color: "transparent",
     weight: 0,
-    fillColor: "rgba(255, 35, 77, 0.36)",
-    fillOpacity: 0.86,
+    fillColor: "rgba(255, 35, 77, 0.24)",
+    fillOpacity: 0.44,
     className: "debt-region"
   },
   stock: {
     color: "transparent",
     weight: 0,
-    fillColor: "rgba(210, 255, 68, 0.3)",
-    fillOpacity: 0.78,
+    fillColor: "rgba(210, 255, 68, 0.2)",
+    fillOpacity: 0.4,
     className: "stock-region"
   },
   priority: {
@@ -445,23 +448,58 @@ function firstSignal(
   return collection.features.find((feature) => feature.properties.kind === kind) ?? collection.features[0];
 }
 
-function populationStarSize(city: CityProperties): number {
-  const populationK = city.populationK ?? (city.capital ? 1860 : city.millionSignal ? 650 : 120);
-  const minPopulation = 50;
+function isMajorCityStar(city: CityProperties): boolean {
+  return (city.populationK ?? 0) >= majorCityStarMinPopulationK;
+}
+
+function cityStarZoomScale(zoom: number): number {
+  return Math.min(1.82, Math.max(0.68, 0.76 + (zoom - 5.4) * 0.18));
+}
+
+function populationStarSize(city: CityProperties, zoom: number): number {
+  const populationK = city.populationK ?? 120;
+  const minPopulation = 45;
   const maxPopulation = 1860;
   const clampedPopulation = Math.min(maxPopulation, Math.max(minPopulation, populationK));
   const populationScale = Math.sqrt((clampedPopulation - minPopulation) / (maxPopulation - minPopulation));
-  const baseSize = 12 + populationScale * 18;
-  return Math.round(city.capital ? baseSize + 2 : baseSize);
+  const baseSize = 8 + populationScale * 24;
+  return Math.round((city.capital ? baseSize + 3 : baseSize) * cityStarZoomScale(zoom));
+}
+
+function populationStarIcon(city: CityProperties, className: string, zoom: number): L.DivIcon {
+  const iconSize = populationStarSize(city, zoom);
+  return L.divIcon({
+    className: `${className} brand-city-icon`,
+    html: `<span class="brand-star" aria-hidden="true"></span>`,
+    iconSize: [iconSize, iconSize],
+    iconAnchor: [iconSize / 2, iconSize / 2]
+  });
 }
 
 function addCityNodes(
   source: FeatureCollection<Point, CityProperties>,
   base: LayerGroup,
   map: LeafletMap,
-  cityById: Map<string, typeof majorCities[number]>,
-  clickableIds: Set<string>
+  cityById: Map<string, typeof majorCities[number]>
 ): void {
+  const populationStarMarkers: Array<{ marker: L.Marker; city: CityProperties; className: string }> = [];
+  let populationStarFrame = 0;
+
+  function updatePopulationStars(): void {
+    const zoom = map.getZoom();
+    populationStarMarkers.forEach(({ marker, city, className }) => {
+      marker.setIcon(populationStarIcon(city, className, zoom));
+    });
+  }
+
+  function schedulePopulationStarUpdate(): void {
+    if (populationStarFrame) window.cancelAnimationFrame(populationStarFrame);
+    populationStarFrame = window.requestAnimationFrame(() => {
+      populationStarFrame = 0;
+      updatePopulationStars();
+    });
+  }
+
   L.geoJSON(source, {
     pointToLayer: (feature) => {
       const [lng, lat] = feature.geometry.coordinates;
@@ -471,46 +509,65 @@ function addCityNodes(
         latLng: [coordinateLatLng.lat, coordinateLatLng.lng] as L.LatLngExpression
       };
       cityById.set(city.id, city);
+      const isPopulationStar = isMajorCityStar(city);
       const className = [
         "city-node",
         city.capital ? "capital-node" : "",
-        city.millionSignal ? "million-city-node" : "",
-        city.starSignal ? "standard-city-star" : ""
+        isPopulationStar ? "million-city-node" : "",
+        !city.capital ? "standard-city-star" : ""
       ].filter(Boolean).join(" ");
-      if (city.millionSignal || city.capital || city.starSignal) {
-        const iconSize = populationStarSize(city);
-        const marker = L.marker(coordinateLatLng, {
-          icon: L.divIcon({
-            className: `${className} brand-city-icon`,
-            html: `<span class="brand-star" aria-hidden="true"></span>`,
-            iconSize: [iconSize, iconSize],
-            iconAnchor: [iconSize / 2, iconSize / 2]
-          }),
-          interactive: clickableIds.has(city.id),
-          pane: "markerPane"
-        });
-        if (clickableIds.has(city.id)) {
-          marker.on("click", () => map.fire("business-city-click", { cityId: city.id }));
-        }
-        return marker;
-      }
-      const marker = L.circleMarker(coordinateLatLng, {
-        className,
-        color: city.capital ? "rgba(255, 35, 77, 1)" : city.millionSignal ? "rgba(239, 255, 86, 1)" : "rgba(47, 255, 255, 0.98)",
-        weight: city.millionSignal ? 3.2 : 2.1,
-        fill: true,
-        fillColor: city.millionSignal ? "rgba(255, 255, 255, 1)" : "rgba(47, 255, 255, 0.92)",
-        fillOpacity: 1,
-        radius: city.capital ? 13 : city.millionSignal ? 10 : 5.5,
-        pane: "markerPane",
-        interactive: clickableIds.has(city.id)
+      const marker = L.marker(coordinateLatLng, {
+        icon: populationStarIcon(city, className, map.getZoom()),
+        interactive: true,
+        pane: "markerPane"
       });
-      if (clickableIds.has(city.id)) {
-        marker.on("click", () => map.fire("business-city-click", { cityId: city.id }));
-      }
+      populationStarMarkers.push({ marker, city, className });
+      marker.on("click", (event) => {
+        L.DomEvent.stop(event.originalEvent);
+        map.fire("business-city-click", {
+          cityId: city.id,
+          cityName: city.name,
+          latLng: city.latLng,
+          populationK: city.populationK
+        });
+      });
       return marker;
     }
   }).addTo(base);
+
+  if (populationStarMarkers.length > 0) {
+    map.on("zoomend viewreset", schedulePopulationStarUpdate);
+  }
+}
+
+function geoJsonPolygonToLatLngs(feature: Feature<Polygon>): L.LatLngExpression[] {
+  return feature.geometry.coordinates[0].map(([lng, lat]) => [lat, lng]);
+}
+
+function clipCityPoints(
+  source: FeatureCollection<Point, CityProperties>,
+  clipFeature: Feature<Polygon>
+): FeatureCollection<Point, CityProperties> {
+  const polygons = [geoJsonPolygonToLatLngs(clipFeature), ...polandStarClipPolygons];
+  return {
+    type: "FeatureCollection",
+    features: source.features.filter((feature) => {
+      const [lng, lat] = feature.geometry.coordinates;
+      return isLatLngInsideAllPolygons([lat, lng], polygons);
+    })
+  };
+}
+
+function clipEventsToPoland(
+  source: FeatureCollection<Point, EventProperties>
+): FeatureCollection<Point, EventProperties> {
+  return {
+    type: "FeatureCollection",
+    features: source.features.filter((feature) => {
+      const [lng, lat] = feature.geometry.coordinates;
+      return isInsidePolandStarClip([lat, lng]);
+    })
+  };
 }
 
 function addFinancialLayers(
@@ -527,19 +584,20 @@ function addFinancialLayers(
     L.geoJSON(pickSignals(signalSource, "debt"), { style: signalStyles.debt }).addTo(groups.debt);
     L.geoJSON(pickSignals(signalSource, "stock"), { style: signalStyles.stock }).addTo(groups.stock);
   }
-  L.geoJSON(eventSource, {
-    pointToLayer: (feature, latlng) => L.circle(latlng, {
-      radius: feature.properties.radiusMeters,
-      color: "rgba(239, 255, 86, 0.95)",
-      weight: 2,
-      fillColor: "rgba(239, 255, 86, 0.08)",
-      fillOpacity: 1,
-      dashArray: "5 8",
-      className: "event-circle",
-      interactive: false
+  const clippedEventSource = clipEventsToPoland(eventSource);
+  L.geoJSON(clippedEventSource, {
+    pointToLayer: (_feature, latlng) => L.marker(latlng, {
+      interactive: false,
+      pane: "markerPane",
+      icon: L.divIcon({
+        className: "event-star-icon",
+        html: `<span class="event-star" aria-hidden="true"></span>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 17]
+      })
     })
   }).addTo(groups.events);
-  L.geoJSON(eventSource, {
+  L.geoJSON(clippedEventSource, {
     pointToLayer: (feature, latlng) => L.marker(latlng, {
       interactive: false,
       icon: L.divIcon({
@@ -585,12 +643,11 @@ function addSalesDirectiveLabels(groups: SceneLayerGroups, directives: SalesDire
 export function createBusinessMap(map: LeafletMap): BusinessMapLayers {
   ensureMapPanes(map);
   const cityById = new Map<string, typeof majorCities[number]>();
-  const clickableCities = new Set(["warsaw", "krakow", "lodz", "wroclaw", "poznan", "gdansk", "katowice", "radom"]);
 
   const countryBase = L.layerGroup();
   L.geoJSON(polandFeature, { style: countryStyle }).addTo(countryBase);
   L.geoJSON(transportFeatures, { style: highwayStyle }).addTo(countryBase);
-  addCityNodes(cityPointFeatures, countryBase, map, cityById, clickableCities);
+  addCityNodes(clipCityPoints(cityPointFeatures, polandFeature), countryBase, map, cityById);
 
   const countryGroups = emptyGroups();
   addFinancialLayers(countryGroups, signalPolygonFeatures, eventPointFeatures, "country");
@@ -607,7 +664,7 @@ export function createBusinessMap(map: LeafletMap): BusinessMapLayers {
   const regionBase = L.layerGroup();
   L.geoJSON(mazowieckieRegionFeature, { style: regionBoundaryStyle }).addTo(regionBase);
   L.geoJSON(regionTransportFeatures, { style: highwayStyle }).addTo(regionBase);
-  addCityNodes(regionCityPointFeatures, regionBase, map, cityById, new Set(["warsaw", "radom"]));
+  addCityNodes(clipCityPoints(regionCityPointFeatures, mazowieckieRegionFeature), regionBase, map, cityById);
 
   const regionGroups = emptyGroups();
   addFinancialLayers(regionGroups, regionSignalPolygonFeatures, regionEventPointFeatures, "region");

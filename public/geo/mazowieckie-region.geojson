@@ -1,0 +1,56 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "mazowieckie-scene",
+        "name": "Mazowieckie Region",
+        "kind": "poland"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              19.25,
+              52.9
+            ],
+            [
+              20.25,
+              53.05
+            ],
+            [
+              21.55,
+              52.8
+            ],
+            [
+              22.55,
+              52.28
+            ],
+            [
+              22.35,
+              51.4
+            ],
+            [
+              21.35,
+              50.98
+            ],
+            [
+              20.2,
+              51.18
+            ],
+            [
+              19.35,
+              51.85
+            ],
+            [
+              19.25,
+              52.9
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

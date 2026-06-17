@@ -137,13 +137,13 @@ export const transportFeatures: FeatureCollection<LineString, LineProperties> = 
 const expenseFeatures: Feature<Polygon, SignalProperties>[] = [
   polygonFeature({ id: "expenses-nw", name: "North-west cost leak", kind: "expenses", score: 54 }, [[14.9, 53.72], [15.72, 53.58], [15.92, 53.08], [15.25, 52.84], [14.68, 53.2], [14.9, 53.72]]),
   polygonFeature({ id: "expenses-north", name: "Northern logistics drag", kind: "expenses", score: 61 }, [[19.66, 54.14], [20.56, 54.02], [20.76, 53.42], [19.9, 53.18], [19.38, 53.62], [19.66, 54.14]]),
-  polygonFeature({ id: "expenses-sw", name: "South-west operating burn", kind: "expenses", score: 57 }, [[15.38, 51.06], [16.2, 50.72], [16.06, 50.16], [15.28, 50.06], [14.98, 50.58], [15.38, 51.06]]),
+  polygonFeature({ id: "expenses-sw", name: "South-west operating cost", kind: "expenses", score: 57 }, [[15.38, 51.06], [16.2, 50.72], [16.06, 50.16], [15.28, 50.06], [14.98, 50.58], [15.38, 51.06]]),
   polygonFeature({ id: "expenses-east", name: "Eastern route cost leak", kind: "expenses", score: 49 }, [[23.02, 52.02], [23.72, 51.58], [23.34, 51.1], [22.58, 51.24], [22.34, 51.78], [23.02, 52.02]])
 ];
 
 export const hotRegionFeatures: Feature<Polygon, SignalProperties>[] = [
-  polygonFeature({ id: "revenue-mazowieckie", name: "Mazowieckie revenue furnace", kind: "revenue", regionId: "mazowieckie", score: 92 }, [[20.2, 52.78], [21.55, 52.55], [22.05, 52.02], [21.55, 51.45], [20.4, 51.35], [19.82, 51.92], [19.84, 52.55], [20.2, 52.78]]),
-  polygonFeature({ id: "revenue-silesia", name: "Silesia revenue forge", kind: "revenue", regionId: "slaskie", score: 84 }, [[18.55, 51.04], [19.58, 50.58], [20.12, 49.86], [19.18, 49.48], [18.26, 49.92], [18.55, 51.04]]),
+  polygonFeature({ id: "revenue-mazowieckie", name: "Mazowieckie revenue maximum", kind: "revenue", regionId: "mazowieckie", score: 92 }, [[20.2, 52.78], [21.55, 52.55], [22.05, 52.02], [21.55, 51.45], [20.4, 51.35], [19.82, 51.92], [19.84, 52.55], [20.2, 52.78]]),
+  polygonFeature({ id: "revenue-silesia", name: "Silesia revenue cluster", kind: "revenue", regionId: "slaskie", score: 84 }, [[18.55, 51.04], [19.58, 50.58], [20.12, 49.86], [19.18, 49.48], [18.26, 49.92], [18.55, 51.04]]),
   polygonFeature({ id: "revenue-southeast", name: "South-east revenue march", kind: "revenue", regionId: "podkarpackie", score: 76 }, [[21.1, 50.48], [22.7, 50.2], [22.84, 49.42], [21.38, 49.18], [20.62, 49.72], [21.1, 50.48]]),
   polygonFeature({ id: "revenue-west", name: "Western revenue corridor", kind: "revenue", regionId: "wielkopolskie", score: 71 }, [[16.25, 52.78], [17.36, 52.6], [17.9, 52.0], [16.95, 51.55], [15.92, 51.86], [16.25, 52.78]])
 ];
@@ -183,7 +183,7 @@ export const regionSignalPolygonFeatures: FeatureCollection<Polygon, SignalPrope
   features: [
     polygonFeature({ id: "region-revenue-warsaw", name: "Warsaw revenue core", kind: "revenue", regionId: "mazowieckie", score: 95 }, [[20.55, 52.48], [21.28, 52.42], [21.46, 51.98], [20.88, 51.78], [20.42, 52.05], [20.55, 52.48]]),
     polygonFeature({ id: "region-revenue-radom", name: "Radom recovery pocket", kind: "revenue", regionId: "mazowieckie", score: 62 }, [[20.7, 51.62], [21.45, 51.48], [21.35, 51.05], [20.72, 51.0], [20.48, 51.34], [20.7, 51.62]]),
-    polygonFeature({ id: "region-expenses-west", name: "Western logistics burn", kind: "expenses", regionId: "mazowieckie", score: 68 }, [[19.55, 52.72], [20.42, 52.58], [20.35, 52.05], [19.52, 51.92], [19.28, 52.38], [19.55, 52.72]]),
+    polygonFeature({ id: "region-expenses-west", name: "Western logistics cost", kind: "expenses", regionId: "mazowieckie", score: 68 }, [[19.55, 52.72], [20.42, 52.58], [20.35, 52.05], [19.52, 51.92], [19.28, 52.38], [19.55, 52.72]]),
     polygonFeature({ id: "region-expenses-east", name: "Eastern route drag", kind: "expenses", regionId: "mazowieckie", score: 57 }, [[21.42, 52.66], [22.35, 52.2], [22.16, 51.62], [21.38, 51.72], [21.2, 52.18], [21.42, 52.66]]),
     polygonFeature({ id: "region-debt-south", name: "Southern debt belt", kind: "debt", regionId: "mazowieckie", score: 76 }, [[20.2, 51.88], [21.46, 51.76], [21.72, 51.22], [20.8, 50.98], [20.05, 51.3], [20.2, 51.88]]),
     polygonFeature({ id: "region-stock-north", name: "Northern warehouse drag", kind: "stock", regionId: "mazowieckie", score: 59 }, [[20.15, 52.98], [21.22, 52.9], [21.12, 52.48], [20.18, 52.48], [19.94, 52.72], [20.15, 52.98]])
