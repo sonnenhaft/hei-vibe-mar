@@ -1,0 +1,92 @@
+{
+  "regions": [
+    {
+      "id": "mazowieckie",
+      "name": "Mazowieckie",
+      "population": 5510000,
+      "salesIndex": 86,
+      "debtRisk": 72,
+      "warehouseOverstock": 41,
+      "eventForecast": 91
+    },
+    {
+      "id": "lodzkie",
+      "name": "Lodzkie",
+      "population": 2390000,
+      "salesIndex": 58,
+      "debtRisk": 39,
+      "warehouseOverstock": 66,
+      "eventForecast": 43
+    },
+    {
+      "id": "wielkopolskie",
+      "name": "Wielkopolskie",
+      "population": 3500000,
+      "salesIndex": 64,
+      "debtRisk": 31,
+      "warehouseOverstock": 35,
+      "eventForecast": 56
+    },
+    {
+      "id": "malopolskie",
+      "name": "Malopolskie",
+      "population": 3430000,
+      "salesIndex": 74,
+      "debtRisk": 47,
+      "warehouseOverstock": 26,
+      "eventForecast": 69
+    },
+    {
+      "id": "slaskie",
+      "name": "Slaskie",
+      "population": 4370000,
+      "salesIndex": 79,
+      "debtRisk": 62,
+      "warehouseOverstock": 58,
+      "eventForecast": 62
+    },
+    {
+      "id": "pomorskie",
+      "name": "Pomorskie",
+      "population": 2360000,
+      "salesIndex": 61,
+      "debtRisk": 28,
+      "warehouseOverstock": 33,
+      "eventForecast": 77
+    }
+  ],
+  "cities": [
+    {
+      "id": "warsaw",
+      "name": "Warsaw",
+      "regionId": "mazowieckie",
+      "population": 1860000,
+      "salesIndex": 92,
+      "debtRisk": 64,
+      "warehouseOverstock": 48,
+      "eventForecast": 96,
+      "trailScore": 89
+    },
+    {
+      "id": "radom",
+      "name": "Radom",
+      "regionId": "mazowieckie",
+      "population": 196000,
+      "salesIndex": 53,
+      "debtRisk": 76,
+      "warehouseOverstock": 34,
+      "eventForecast": 44,
+      "trailScore": 41
+    }
+  ],
+  "aiRecommendations": [
+    {
+      "id": "sales-visit-zone",
+      "label": "AI sales visit polygon",
+      "regionId": "mazowieckie",
+      "reason": "High event forecast, strong city trail, and debt pressure around the Warsaw-Radom corridor.",
+      "confidence": 0.84,
+      "recommendedAction": "Send field sales here first next week."
+    }
+  ]
+}
