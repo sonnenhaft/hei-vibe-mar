@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "city-events-center",
+        "name": "Central event pulse",
+        "window": "Fri 18:00-01:00",
+        "detail": "Highest night demand; prioritize fresh stock around central Zabka clusters.",
+        "radiusMeters": 10500,
+        "score": 91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.01,
+          52.23
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "city-events-mokotow",
+        "name": "Mokotow evening wave",
+        "window": "Sat 17:00-23:00",
+        "detail": "Office-to-residential evening move; watch cold chain and promo gaps.",
+        "radiusMeters": 8000,
+        "score": 74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.02,
+          52.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "city-events-praga",
+        "name": "Praga recovery wave",
+        "window": "Sun 12:00-20:00",
+        "detail": "Useful recovery route with moderate debt pressure east of the river.",
+        "radiusMeters": 7200,
+        "score": 68
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.08,
+          52.25
+        ]
+      }
+    }
+  ]
+}
